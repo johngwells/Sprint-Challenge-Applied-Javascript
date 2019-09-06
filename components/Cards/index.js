@@ -19,39 +19,30 @@
 // Create a card for each of the articles and add the card to the DOM.
 
 const cardsContainer = document.querySelector('.cards-container');
-const articles = []
+
 // articles.forEach(data => {
-  axios
-    .get(`https://lambda-times-backend.herokuapp.com/articles`)
-    .then(response => {
-      // console.log('articles', response);
-      articleData = response.data;
-      Object.values(articleData).forEach(item => {
-        console.log("forEach item", item);
-
-
-        // Keys returns: Topic Titles
-        // Javascript BootStrap Technology JQuery NodeJS
-        console.log(Object.keys(item));
-
-        // append to html cards container
-        cardsContainer.appendChild(Card(item));
-      })
-    })
-    .catch(error => {
-      console.log('articles error', error);
+axios
+  .get(`https://lambda-times-backend.herokuapp.com/articles`)
+  .then(response => {
+    const articleData = response.data.articles;
+    Object.keys(articleData).forEach(element => {
+      articleData[element].forEach(Card);
     });
+  })
+  .catch(error => {
+    console.log('articles error', error);
+  });
 
 
 function Card(data) {
-  // console.log('function Card', data);
+  console.log('function data', data);
   const 
     card = document.createElement('div'),
     headline = document.createElement('div'),
     author = document.createElement('div'),
     imgContainer = document.createElement('div'),
     authorImg = document.createElement('img'),
-    authorsName = document.createElement('span')
+    authorName = document.createElement('span')
 
     // set classes
     card.classList.add('card');
@@ -63,14 +54,19 @@ function Card(data) {
     // headline.textContent = data.javascript[0].headline;
     // authorImg.src = data.javascript[0].authorPhoto;
     // authorsName.textContent = data.javascript[0].authorName;
+    headline.textContent = data.headline;
+    authorImg.src = data.authorPhoto;
+    authorName.textContent = data.authorName;
 
     card.appendChild(headline);
     card.appendChild(author);
     author.appendChild(imgContainer);
     imgContainer.appendChild(authorImg);
-    author.appendChild(authorsName);
+    author.appendChild(authorName);
 
-    return card;
+    // return card;
+    document.querySelector('.cards-container').appendChild(card);
 }
 
-cardsContainer.appendChild(Card());
+// Why this doesnt work?
+// cardsContainer.appendChild(Card());

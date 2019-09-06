@@ -24,7 +24,7 @@ function Header(data) {
 
   date.textContent = 'March 28th, 2019';
   title.textContet = 'Lambda Times';
-  temp.textContent = '98';
+  temp.textContent = `98\xB0`;
 
   header.appendChild(date);
   header.appendChild(title);
